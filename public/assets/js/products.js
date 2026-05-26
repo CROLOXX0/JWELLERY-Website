@@ -1,0 +1,166 @@
+/* ==========================================================================
+   Jwellery Premium Mock Database
+   ========================================================================== */
+
+const PRODUCTS = [
+    {
+        id: "rng-aura",
+        name: "Lover's Knot Rose Ring",
+        category: "rings",
+        price: 24500, // in INR
+        rating: 4.9,
+        reviewsCount: 142,
+        image: "assets/images/ring_premium.png",
+        hoverImage: "assets/images/ring_premium.png",
+        description: "An elegant intertwining knot design crafted in solid 18k Rose Gold, set with micro-pavé conflict-free brilliant diamonds. The perfect symbol of modern, lightweight luxury.",
+        details: {
+            metal: "18k Solid Rose Gold",
+            stone: "Ethically Sourced Diamonds (VVS1, Color G, 0.28 Carats)",
+            weight: "approx. 3.4 grams",
+            origin: "Handcrafted in Delhi, India",
+            sizes: ["US 5", "US 6", "US 7", "US 8"]
+        },
+        featured: true,
+        inStock: true
+    },
+    {
+        id: "rng-eternity",
+        name: "Infinite Twine Eternity Ring",
+        category: "rings",
+        price: 18900,
+        rating: 4.8,
+        reviewsCount: 96,
+        image: "assets/images/ring_premium.png",
+        hoverImage: "assets/images/ring_premium.png",
+        description: "A continuous, delicate ribbon of 18k Rose Gold twisting gracefully around the finger. Sleek and understated, meant to be stacked or worn solo.",
+        details: {
+            metal: "18k Solid Rose Gold",
+            stone: "None (High-polish luxury finish)",
+            weight: "approx. 2.8 grams",
+            origin: "Handcrafted in Delhi, India",
+            sizes: ["US 5", "US 6", "US 7", "US 8"]
+        },
+        featured: false,
+        inStock: true
+    },
+    {
+        id: "nec-dew",
+        name: "Solitaire Dew Pendant",
+        category: "necklaces",
+        price: 36000,
+        rating: 5.0,
+        reviewsCount: 208,
+        image: "assets/images/necklace_elegant.png",
+        hoverImage: "assets/images/necklace_elegant.png",
+        description: "A breathtaking pear-cut solitaire diamond that catches light beautifully, floating seamlessly on an ultra-fine 18k Rose Gold Venetian chain.",
+        details: {
+            metal: "18k Solid Rose Gold",
+            stone: "0.45 Carats Pear-cut Solitaire Diamond (VVS1, Color F)",
+            weight: "approx. 4.2 grams",
+            origin: "Handcrafted in Delhi, India",
+            chainLength: "16 inches with a 2-inch extender"
+        },
+        featured: true,
+        inStock: true
+    },
+    {
+        id: "nec-celestial",
+        name: "Celestial Minimalist Choker",
+        category: "necklaces",
+        price: 28500,
+        rating: 4.7,
+        reviewsCount: 74,
+        image: "assets/images/necklace_elegant.png",
+        hoverImage: "assets/images/necklace_elegant.png",
+        description: "Dainty star-engraved discs suspended along a fluid, lightweight Rose Gold cable chain. Sits perfectly on the collarbone for everyday elegance.",
+        details: {
+            metal: "18k Solid Rose Gold",
+            stone: "Star-set Brilliant Round Diamonds (0.08 Carats)",
+            weight: "approx. 3.9 grams",
+            origin: "Handcrafted in Delhi, India",
+            chainLength: "14 inches with a 1.5-inch extender"
+        },
+        featured: false,
+        inStock: true
+    },
+    {
+        id: "ear-petal",
+        name: "Petal Pearl Drop Studs",
+        category: "earrings",
+        price: 15400,
+        rating: 4.9,
+        reviewsCount: 112,
+        image: "assets/images/earrings_studs.png",
+        hoverImage: "assets/images/earrings_studs.png",
+        description: "Artfully designed rose gold petal settings supporting a selected premium freshwater white pearl. Lightweight and stunning for modern brides and dinner dates.",
+        details: {
+            metal: "18k Solid Rose Gold",
+            stone: "Grade AAA Hand-selected Freshwater Pearl (6mm)",
+            weight: "approx. 2.5 grams (per pair)",
+            origin: "Handcrafted in Delhi, India",
+            backing: "Luxury butterfly push-back"
+        },
+        featured: true,
+        inStock: true
+    },
+    {
+        id: "ear-chevron",
+        name: "Minimalist Chevron Hoops",
+        category: "earrings",
+        price: 12200,
+        rating: 4.6,
+        reviewsCount: 53,
+        image: "assets/images/earrings_studs.png",
+        hoverImage: "assets/images/earrings_studs.png",
+        description: "Geometric sharp-angled hoop earrings in 18k Rose Gold. Designed with a seamless invisible click clasp, engineered for weightless comfort.",
+        details: {
+            metal: "18k Solid Rose Gold",
+            stone: "None (Sleek brushed matte edges)",
+            weight: "approx. 1.9 grams",
+            origin: "Handcrafted in Delhi, India",
+            backing: "Click-lock hinge"
+        },
+        featured: false,
+        inStock: true
+    },
+    {
+        id: "bng-aura",
+        name: "Lotus Delicate Bangle",
+        category: "bangles",
+        price: 45000,
+        rating: 4.9,
+        reviewsCount: 88,
+        image: "assets/images/bangles_minimal.png",
+        hoverImage: "assets/images/bangles_minimal.png",
+        description: "A flexible, high-tensile 18k Rose Gold bangle culminating in two delicate lotus buds studded with diamond pavé. An instant classic for chic styling.",
+        details: {
+            metal: "18k Solid Rose Gold",
+            stone: "Round Cut Accent Diamonds (0.15 Carats)",
+            weight: "approx. 6.2 grams",
+            origin: "Handcrafted in Delhi, India",
+            sizing: "Fits wrist sizes 5.5 to 6.5 inches comfortably"
+        },
+        featured: true,
+        inStock: true
+    },
+    {
+        id: "ank-stardust",
+        name: "Stardust Delicate Anklet",
+        category: "minimal",
+        price: 9800,
+        rating: 4.8,
+        reviewsCount: 165,
+        image: "assets/images/anklet_fashion.png",
+        hoverImage: "assets/images/anklet_fashion.png",
+        description: "A whimsical, barely-there ankle chain shimmering with diamond-cut metal beads that capture the sun. Ultimate minimal resort wear luxury.",
+        details: {
+            metal: "14k Solid Rose Gold",
+            stone: "None",
+            weight: "approx. 1.2 grams",
+            origin: "Handcrafted in Delhi, India",
+            length: "9 inches with a 1-inch adjustability chain"
+        },
+        featured: false,
+        inStock: true
+    }
+];

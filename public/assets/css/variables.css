@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Jwellery Premium Design Tokens & Variable System
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500;600;700&display=swap');
+
+:root {
+    /* Fonts */
+    --font-primary: 'Montserrat', sans-serif;
+    --font-serif: 'Cormorant Garamond', serif;
+
+    /* Common Transitions */
+    --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    --transition-snappy: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Spacing & Sizing Tokens */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 8rem;
+    --border-radius-sm: 4px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 24px;
+    --border-radius-full: 9999px;
+}
+
+/* Light Luxury Theme (Minimal White / Soft Feminine / Rose Gold) */
+[data-theme="light"] {
+    --bg-primary: #FCFAF8;       /* Alabaster Warm White */
+    --bg-secondary: #F4EFEB;     /* Very Light Clay/Sand */
+    --bg-tertiary: #FFFFFF;      /* Clean White */
+    
+    --text-primary: #1F1B1A;     /* Soft Onyx */
+    --text-secondary: #6B5E5B;   /* Warm Gray/Taupe */
+    --text-muted: #9E8E8A;       /* Delicate Slate */
+    
+    --accent-rose: #B88E8D;      /* Classic Rose Gold */
+    --accent-rose-light: #E8D3D2;/* Pale Blush */
+    --accent-rose-dark: #8C5F5E; /* Deep Terracotta Rose */
+    --accent-gold: #D4A373;      /* Soft Champagne Gold */
+    
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(184, 142, 141, 0.15);
+    --glass-shadow: 0 8px 32px 0 rgba(184, 142, 141, 0.08);
+    
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.03);
+    --shadow-medium: 0 10px 30px rgba(184, 142, 141, 0.12);
+    
+    --input-bg: #FFFFFF;
+    --input-border: #E8D3D2;
+}
+
+/* Dark Luxury Theme (Deep Ebony / Midnight Gold / Bright Rose Gold) */
+[data-theme="dark"] {
+    --bg-primary: #0F0D0C;       /* Obsidian Black */
+    --bg-secondary: #1A1716;     /* Dark Charcoal-Rose Tint */
+    --bg-tertiary: #24201F;      /* Soft Ebony */
+    
+    --text-primary: #F7F4F2;     /* Off-White Platinum */
+    --text-secondary: #BFAFA8;   /* Light Warm Taupe */
+    --text-muted: #7E6C66;       /* Dusty Slate / Dark Charcoal */
+    
+    --accent-rose: #E8C5C8;      /* Bright Vibrant Rose Gold */
+    --accent-rose-light: #3D2D2E;/* Dark Crimson-Blush */
+    --accent-rose-dark: #C69A9D; /* Muted Antique Rose */
+    --accent-gold: #E5C390;      /* Luminous Champagne Gold */
+    
+    --glass-bg: rgba(26, 23, 22, 0.85);
+    --glass-border: rgba(232, 197, 200, 0.12);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --shadow-medium: 0 10px 40px rgba(0, 0, 0, 0.6);
+    
+    --input-bg: #1A1716;
+    --input-border: #3D2D2E;
+}

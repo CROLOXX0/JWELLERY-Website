@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jwellery — Luxury Atelier Admin Panel</title>
+    
+    <!-- Design System Stylesheets -->
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+
+    <!-- Chart.js for High-end Visualization Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="admin-body">
+
+    <!-- SECURE ADMIN AUTH GATE OVERLAY -->
+    <div class="admin-auth-overlay" id="admin-auth-gate">
+        <div class="admin-auth-card">
+            <div class="logo" style="margin-bottom: 2rem;">
+                <h1 class="logo-main" style="font-size: 2rem; color: #FFFFFF;">Jwellery</h1>
+                <span class="logo-sub" style="font-size:0.5rem; letter-spacing:0.4em;">Atelier Administration</span>
+            </div>
+
+            <!-- Credentials View -->
+            <div id="admin-credentials-view">
+                <h3 class="serif-title" style="font-size: 1.4rem; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center;">Secure Vault Entrance</h3>
+                <p style="color:var(--text-secondary); text-align:center; font-size:0.75rem; margin-bottom: 2rem;">Authorized operations staff credentials required.</p>
+                
+                <form id="admin-login-form">
+                    <div class="form-grp">
+                        <label for="admin-email">Staff Email Address</label>
+                        <input type="email" id="admin-email" required placeholder="admin@jwellery.in">
+                    </div>
+                    <div class="form-grp">
+                        <label for="admin-password">Staff Password</label>
+                        <input type="password" id="admin-password" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%; text-align:center; margin-top: 1rem; letter-spacing:0.2em;">Request Vault OTP</button>
+                </form>
+                <p style="font-size:0.75rem; text-align:center; margin-top:1.5rem; color:var(--text-secondary);">
+                    New staff member? <a href="#" onclick="toggleAdminAuthView('register')" style="color:var(--accent-rose); font-weight:600;">Register Here</a>
+                </p>
+            </div>
+
+            <!-- OTP Submission View -->
+            <div id="admin-otp-view" style="display: none;">
+                <h3 class="serif-title" style="font-size: 1.4rem; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center;">Identity Authorization</h3>
+                <p style="color:var(--accent-rose); text-align:center; font-size:0.75rem; margin-bottom: 2rem; font-weight: 600;">✓ A security token has been generated.</p>
+                
+                <form id="admin-otp-form">
+                    <div class="form-grp">
+                        <label for="admin-otp">6-Digit Security Token</label>
+                        <input type="text" id="admin-otp" required maxLength="6" placeholder="Enter Token" style="text-align: center; font-size: 1.5rem; letter-spacing: 0.3em; font-weight: 700;">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%; text-align:center; margin-top: 1rem; letter-spacing:0.2em;">Authenticate Entrance</button>
+                </form>
+                <div style="text-align:center; margin-top:1.5rem;">
+                    <button class="close-btn" style="font-size:0.75rem; color:var(--text-secondary); text-decoration:underline;" onclick="toggleAdminAuthView('login')">← Back to Credentials</button>
+                </div>
+            </div>
+
+            <!-- Registration View -->
+            <div id="admin-registration-view" style="display: none;">
+                <h3 class="serif-title" style="font-size: 1.4rem; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center;">Register New Staff</h3>
+                <p style="color:var(--text-secondary); text-align:center; font-size:0.75rem; margin-bottom: 2rem;">Authorized onboarding vault configuration.</p>
+                
+                <form id="admin-register-form">
+                    <div class="form-grp">
+                        <label for="admin-reg-name">Full Name</label>
+                        <input type="text" id="admin-reg-name" required placeholder="Vikram Malhotra">
+                    </div>
+                    <div class="form-grp">
+                        <label for="admin-reg-email">Staff Email</label>
+                        <input type="email" id="admin-reg-email" required placeholder="vikram@jwellery.in">
+                    </div>
+                    <div class="form-grp">
+                        <label for="admin-reg-password">Password</label>
+                        <input type="password" id="admin-reg-password" required placeholder="Minimum 6 characters">
+                    </div>
+                    <div class="form-grp">
+                        <label for="admin-reg-phone">Phone Number (for SMS OTP)</label>
+                        <input type="tel" id="admin-reg-phone" required placeholder="9999912345">
+                    </div>
+                    <div class="form-grp">
+                        <label for="admin-reg-role">Atelier Designation</label>
+                        <select id="admin-reg-role">
+                            <option value="Operations Lead">Operations Lead</option>
+                            <option value="Store Manager">Store Manager</option>
+                            <option value="Fulfillment Expert">Fulfillment Expert</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%; text-align:center; margin-top: 1rem; letter-spacing:0.15em;">Request Phone Verification</button>
+                </form>
+                <p style="font-size:0.75rem; text-align:center; margin-top:1.5rem; color:var(--text-secondary);">
+                    Registered staff? <a href="#" onclick="toggleAdminAuthView('login')" style="color:var(--accent-rose); font-weight:600;">Sign In</a>
+                </p>
+            </div>
+
+            <!-- Registration OTP Submission View -->
+            <div id="admin-reg-otp-view" style="display: none;">
+                <h3 class="serif-title" style="font-size: 1.4rem; color: #FFFFFF; margin-bottom: 0.5rem; text-align: center;">Phone Verification</h3>
+                <p style="color:var(--accent-rose); text-align:center; font-size:0.75rem; margin-bottom: 2rem; font-weight: 600;">✓ Verification OTP code sent to your phone!</p>
+                
+                <form id="admin-reg-otp-form">
+                    <div class="form-grp">
+                        <label for="admin-reg-otp">6-Digit Phone SMS OTP</label>
+                        <input type="text" id="admin-reg-otp" required maxLength="6" placeholder="Enter OTP" style="text-align: center; font-size: 1.5rem; letter-spacing: 0.3em; font-weight: 700;">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%; text-align:center; margin-top: 1rem; letter-spacing:0.2em;">Verify Phone & Onboard</button>
+                </form>
+                <div style="text-align:center; margin-top:1.5rem;">
+                    <button class="close-btn" style="font-size:0.75rem; color:var(--text-secondary); text-decoration:underline;" onclick="toggleAdminAuthView('register')">← Back to Registration</button>
+                </div>
+            </div>
+
+            <div id="admin-auth-error" style="color: #e74c3c; font-size: 0.8rem; margin-top: 1rem; text-align: center; font-weight: 500;"></div>
+        </div>
+    </div>
+
+    <!-- MAIN ADMIN PANEL INTERFACE -->
+    <div class="admin-layout" id="admin-main-interface" style="display: none;">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-logo">
+                <a href="#" class="logo">
+                    <h2 class="logo-main" style="color:#FFFFFF; font-size:1.8rem;">Jwellery</h2>
+                    <span class="logo-sub" style="font-size:0.5rem;">Atelier Manager</span>
+                </a>
+            </div>
+
+            <!-- Staff Identity Card -->
+            <div class="staff-id-card">
+                <div class="staff-avatar">👤</div>
+                <div class="staff-meta">
+                    <h4 id="active-admin-name">Ananya Sen</h4>
+                    <span id="active-admin-role">Atelier Owner</span>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="sidebar-nav">
+                <button class="nav-link-btn active" data-tab="analytics">
+                    📊 Analytics Dashboard
+                </button>
+                <button class="nav-link-btn" data-tab="products">
+                    💎 Products Catalog
+                </button>
+                <button class="nav-link-btn" data-tab="orders">
+                    🛍️ Orders Registry
+                </button>
+                <button class="nav-link-btn" data-tab="customers">
+                    👥 Customer Directory
+                </button>
+            </nav>
+
+            <!-- Logout Control -->
+            <button class="admin-logout-btn" onclick="logoutAdmin()">
+                🚪 Terminate Session
+            </button>
+        </aside>
+
+        <!-- MAIN DASHBOARD CONTENT WINDOW -->
+        <main class="admin-content">
+            
+            <!-- ANALYTICS DASHBOARD PANEL -->
+            <section class="admin-tab-panel active" id="panel-analytics">
+                <div class="admin-header">
+                    <div>
+                        <h2 class="serif-title" style="font-size: 2.5rem; margin-bottom: 0.2rem;">Atelier Overview</h2>
+                        <p style="color:var(--text-secondary); font-size:0.85rem; font-family:var(--font-serif); font-style:italic;">Real-time sales performance and customer metrics</p>
+                    </div>
+                </div>
+
+                <!-- Stats Counters Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">💰</div>
+                        <div class="metric-info">
+                            <span class="metric-lbl">Total Acquisitions</span>
+                            <h3 id="stat-revenue" class="serif-title">₹0</h3>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">🛍️</div>
+                        <div class="metric-info">
+                            <span class="metric-lbl">Total Orders</span>
+                            <h3 id="stat-orders" class="serif-title">0</h3>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">👥</div>
+                        <div class="metric-info">
+                            <span class="metric-lbl">Shopper Registry</span>
+                            <h3 id="stat-customers" class="serif-title">0</h3>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">⏳</div>
+                        <div class="metric-info">
+                            <span class="metric-lbl">Pending Fulfill</span>
+                            <h3 id="stat-pending" class="serif-title">0</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart.js Visualization Grid -->
+                <div class="charts-grid">
+                    <div class="chart-container-card">
+                        <h4 class="chart-card-title">Weekly Sales Performance (INR)</h4>
+                        <div class="chart-canvas-wrap">
+                            <canvas id="weeklyRevenueChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container-card">
+                        <h4 class="chart-card-title">Category Revenue Split</h4>
+                        <div class="chart-canvas-wrap">
+                            <canvas id="categoryRevenueChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRODUCTS INVENTORY CATALOG PANEL -->
+            <section class="admin-tab-panel" id="panel-products">
+                <div class="admin-header" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h2 class="serif-title" style="font-size: 2.5rem; margin-bottom: 0.2rem;">Products Catalog</h2>
+                        <p style="color:var(--text-secondary); font-size:0.85rem; font-family:var(--font-serif); font-style:italic;">Manage ornament records, stock count, and catalog listings</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openProductFormModal()">Acquire New Ornament</button>
+                </div>
+
+                <!-- Product Grid/Table -->
+                <div class="admin-table-card">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Jewel</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock Status</th>
+                                <th>Carats/Details</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-table-body">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ORDERS REGISTRY PANEL -->
+            <section class="admin-tab-panel" id="panel-orders">
+                <div class="admin-header">
+                    <div>
+                        <h2 class="serif-title" style="font-size: 2.5rem; margin-bottom: 0.2rem;">Orders Registry</h2>
+                        <p style="color:var(--text-secondary); font-size:0.85rem; font-family:var(--font-serif); font-style:italic;">Review shipping details, billing records, and mark shipment transitions</p>
+                    </div>
+                </div>
+
+                <!-- Orders List -->
+                <div class="admin-table-card">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer Name</th>
+                                <th>Items Count</th>
+                                <th>Total Bill</th>
+                                <th>Shipping Destination</th>
+                                <th>Fulfillment Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table-body">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- CUSTOMERS DIRECTORY PANEL -->
+            <section class="admin-tab-panel" id="panel-customers">
+                <div class="admin-header">
+                    <div>
+                        <h2 class="serif-title" style="font-size: 2.5rem; margin-bottom: 0.2rem;">Customer Directory</h2>
+                        <p style="color:var(--text-secondary); font-size:0.85rem; font-family:var(--font-serif); font-style:italic;">Registered shoppers and synchronized trunk lists</p>
+                    </div>
+                </div>
+
+                <!-- Customer List -->
+                <div class="admin-table-card">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Email Address</th>
+                                <th>Trunk Quantity</th>
+                                <th>Wishlist Trunk</th>
+                                <th>Registration Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customers-table-body">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- PRODUCT ADD / EDIT MODAL DRAWER -->
+    <div class="overlay" id="admin-overlay" style="z-index: 300;"></div>
+    
+    <div class="luxury-modal" id="product-form-modal" style="max-width: 600px; height: auto; max-height: 90vh; z-index: 350;">
+        <button class="modal-close-icon" onclick="closeProductFormModal()">✕</button>
+        <div class="modal-body" style="padding: 2.5rem;">
+            <h3 class="serif-title" id="product-form-title" style="font-size: 2rem; margin-bottom: 1.5rem;">Atelier Jewel Form</h3>
+            
+            <form id="product-crud-form">
+                <input type="hidden" id="form-product-id">
+                
+                <div class="form-grp">
+                    <label for="form-name">Jewel Name</label>
+                    <input type="text" id="form-name" required placeholder="Lotus Bangle">
+                </div>
+
+                <div class="check-input-grp">
+                    <div class="form-grp">
+                        <label for="form-category">Category</label>
+                        <select id="form-category">
+                            <option value="rings">Rings</option>
+                            <option value="necklaces">Necklaces</option>
+                            <option value="earrings">Earrings</option>
+                            <option value="bangles">Bangles</option>
+                            <option value="minimal">Minimal Fashion</option>
+                        </select>
+                    </div>
+                    <div class="form-grp">
+                        <label for="form-price">Price (INR)</label>
+                        <input type="number" id="form-price" required placeholder="25000">
+                    </div>
+                </div>
+
+                <div class="check-input-grp">
+                    <div class="form-grp">
+                        <label for="form-stock">Initial Stock Level</label>
+                        <input type="number" id="form-stock" required placeholder="12" value="10">
+                    </div>
+                    <div class="form-grp">
+                        <label for="form-image">Product Image Source</label>
+                        <div class="image-input-container" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <select id="form-image" onchange="toggleCustomImageInput(this.value)">
+                                <option value="assets/images/ring_premium.png">Ring Elegant (Rose Gold)</option>
+                                <option value="assets/images/necklace_elegant.png">Necklace Venetian (Pearl Drop)</option>
+                                <option value="assets/images/bangles_minimal.png">Bangles Slim Stack</option>
+                                <option value="assets/images/earrings_studs.png">Earrings Stud Petals</option>
+                                <option value="assets/images/anklet_fashion.png">Anklet Stardust Thread</option>
+                                <option value="custom">-- Paste Custom URL/Path --</option>
+                            </select>
+                            <input type="text" id="form-image-custom" placeholder="https://example.com/jewel.jpg or custom path" style="display: none; background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--border-radius-sm); padding: 0.75rem 1rem; font-size: 0.85rem; color: #FFFFFF; outline: none;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-grp">
+                    <label for="form-description">Product Copy/Description</label>
+                    <textarea id="form-description" rows="3" placeholder="Describe the lightweight allure..." style="width:100%; background:var(--input-bg); border:1px solid var(--input-border); border-radius:var(--border-radius-sm); padding:0.6rem; color:#FFFFFF; font-family:inherit; outline:none;"></textarea>
+                </div>
+
+                <h4 class="serif-title" style="font-size: 1.1rem; margin: 1rem 0 0.5rem 0; color: var(--accent-rose);">Atelier Specifications</h4>
+                <div class="check-input-grp">
+                    <div class="form-grp">
+                        <label for="form-spec-metal">Metal Composition</label>
+                        <input type="text" id="form-spec-metal" placeholder="18k Solid Rose Gold" value="18k Solid Rose Gold">
+                    </div>
+                    <div class="form-grp">
+                        <label for="form-spec-stone">Gemstones / Diamonds</label>
+                        <input type="text" id="form-spec-stone" placeholder="Brilliant Diamond Accent (0.12 Carats)">
+                    </div>
+                </div>
+                <div class="check-input-grp">
+                    <div class="form-grp">
+                        <label for="form-spec-weight">Metal Weight</label>
+                        <input type="text" id="form-spec-weight" placeholder="approx. 3.2 grams">
+                    </div>
+                    <div class="form-grp">
+                        <label for="form-spec-origin">Location Crafted</label>
+                        <input type="text" id="form-spec-origin" placeholder="Delhi Atelier, India" value="Handcrafted in Delhi, India">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width:100%; text-align:center; margin-top: 1.5rem; letter-spacing:0.15em;">Save Jewel Records</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Core Logic Scripts -->
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
